@@ -321,8 +321,10 @@ document.addEventListener('DOMContentLoaded', () => {
       formData.append('image_file', blob, 'photo.png');
       formData.append('size', 'auto');
 
-      const apiKeyResponse = await fetch('apikey.txt');
-      const apiKey = await apiKeyResponse.text();
+      // const apiKeyResponse = await fetch('apikey.txt');
+      // const apiKey = await apiKeyResponse.text();
+      
+      const apiKey = process.env.REMOVE_BG_API_KEY;
 
       const apiResponse = await axios.post('https://api.remove.bg/v1.0/removebg', formData, {
         headers: { 'X-Api-Key': apiKey.trim(), 'Content-Type': 'multipart/form-data' },
