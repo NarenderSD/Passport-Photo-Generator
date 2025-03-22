@@ -1,3 +1,4 @@
+/* Glassmorphism Effect */
 .glassmorphism {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
@@ -9,6 +10,7 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
+/* FadeIn Animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -18,10 +20,12 @@
   animation: fadeIn 0.5s ease-out;
 }
 
+/* Input, Select, Button Transitions */
 input, select, button {
   transition: all 0.3s ease;
 }
 
+/* Custom Range Slider */
 input[type="range"] {
   -webkit-appearance: none;
   height: 8px;
@@ -52,6 +56,7 @@ input:focus, select:focus {
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
 }
 
+/* Dark Theme Styles */
 .dark .bg-gray-900 {
   background-color: #1a202c !important;
 }
@@ -72,11 +77,13 @@ input:focus, select:focus {
   background-color: #2d3748 !important;
 }
 
+/* Preview Canvas Styling */
 #previewCanvas {
-  background-color: #ffffff; /* Changed to white (or no background, defaults to white) */
+  background-color: #ffffff; /* Default to white for A4 sheet */
   border: 1px solid #a0aec0;
 }
 
+/* Container and Grid Layout */
 .container {
   max-width: 100%;
 }
@@ -87,6 +94,7 @@ input:focus, select:focus {
   gap: 1.5rem;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
   .container {
     padding: 1rem;
