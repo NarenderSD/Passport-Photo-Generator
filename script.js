@@ -306,45 +306,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Background Removal and Immediate Photo Background Color Selection
   removeBgButton.addEventListener('click', async () => {
-    if (!croppedPhoto) return;
-    removeBgButton.disabled = true;
+  if (!croppedPhoto) return;
+  removeBgButton.disabled = true;
 
-    try {
-        const response = await fetch(croppedPhoto);
-        const blob = await response.blob();
+  try {
+    const response = await fetch(croppedPhoto);
+    const blob = await response.blob();
 
-        const formData = new FormData();
-        formData.append('image_file', blob, 'photo.png');
-        formData.append('size', 'auto');
+    const formData = new FormData();
+    formData.append('image_file', blob, 'photo.png');
+    formData.append('size', 'auto');
 
-        // 🔒 Securely Fetch API Key from apikey.txt
-        const apiKeyResponse = await fetch('apikey.txt');
-        const apiKey = await apiKeyResponse.text();
-        
-        const apiResponse = await axios.post('https://api.remove.bg/v1.0/removebg', formData, {
-            headers: { 'X-Api-Key': apiKey.trim(), 'Content-Type': 'multipart/form-data' },
-            responseType: 'blob',
-        });
+    // 🔒 Use the environment variable directly
+    const apiKey = process.env.NEXT_PUBLIC_REMOVE_BG_API_KEY;
 
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            croppedPhoto = reader.result;
-            updatePhoto(croppedPhoto);
-            removeBgButton.disabled = false;
-            settingsPanel.classList.add('hidden');
-            if (isPreviewOn) preview.classList.add('hidden');
-            bgChoose.classList.remove('hidden');
-            renderPreview(); // Show transparent background initially
-        };
-        reader.readAsDataURL(apiResponse.data);
-
-    } catch (error) {
-        console.error('Error removing background:', error);
-        alert('Failed to remove background. Check your API key or internet connection.');
-        removeBgButton.disabled = false;
+    if (!apiKey) {
+      throw new Error('Remove.bg API key is not defined. Please set NEXT_PUBLIC_REMOVE_BG_API_KEY in Vercel Environment Variables.');
     }
-});
 
+    const apiResponse = await axios.post('https://api.remove.bg/v1.0/removebg', formData, {
+      headers: { 'X-Api-Key': apiKey.trim(), 'Content-Type': 'multipart/form-data' },
+      responseType: 'blob',
+    });
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      croppedPhoto = reader.result;
+      updatePhoto(croppedPhoto);
+      removeBgButton.disabled = false;
+      settingsPanel.classList.add('hidden');
+      if (isPreviewOn) preview.classList.add('hidden');
+      bgChoose.classList.remove('hidden');
+      renderPreview(); // Show transparent background initially
+    };
+    reader.readAsDataURL(apiResponse.data);
+  } catch (error) {
+    console.error('Error removing background:', error);
+    alert('Failed to remove background. Check your API key in Vercel Environment Variables or your internet connection.');
+    removeBgButton.disabled = false;
+  }
+});
 
   // Apply Photo Background and Fix on A4
   applyPhotoBgButton.addEventListener('click', () => {
