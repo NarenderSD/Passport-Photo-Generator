@@ -1,21 +1,7 @@
-/* styles.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Base Styles */
-body {
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 /* Glassmorphism Effect */
 .glassmorphism {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
 }
@@ -26,14 +12,8 @@ body {
 
 /* FadeIn Animation */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fadeIn {
@@ -41,9 +21,7 @@ body {
 }
 
 /* Input, Select, Button Transitions */
-input,
-select,
-button {
+input, select, button {
   transition: all 0.3s ease;
 }
 
@@ -68,22 +46,11 @@ input[type="range"]::-webkit-slider-thumb {
   transition: all 0.3s ease;
 }
 
-input[type="range"]::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #6366f1;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-input[type="range"]:focus::-webkit-slider-thumb,
-input[type="range"]:focus::-moz-range-thumb {
+input[type="range"]:focus::-webkit-slider-thumb {
   background: #4f46e5;
 }
 
-input:focus,
-select:focus {
+input:focus, select:focus {
   outline: none;
   border-color: #6366f1;
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
@@ -110,10 +77,6 @@ select:focus {
   background-color: #2d3748 !important;
 }
 
-.dark .bg-gray-700 {
-  background-color: #4a5568 !important;
-}
-
 /* Preview Canvas Styling */
 #previewCanvas {
   background-color: #ffffff; /* Default to white for A4 sheet */
@@ -125,7 +88,6 @@ select:focus {
   max-width: 100%;
 }
 
-/* Ensure grid layout works properly */
 .grid-cols-4 {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
@@ -137,15 +99,12 @@ select:focus {
   .container {
     padding: 1rem;
   }
-
   h1 {
     font-size: 2rem;
   }
-
   .grid-cols-4 {
     grid-template-columns: 1fr;
   }
-
   button {
     font-size: 0.875rem;
     padding: 0.5rem 1rem;
@@ -156,11 +115,9 @@ select:focus {
   .container {
     padding: 0.5rem;
   }
-
   h1 {
     font-size: 1.5rem;
   }
-
   button {
     font-size: 0.75rem;
     padding: 0.375rem 0.75rem;
