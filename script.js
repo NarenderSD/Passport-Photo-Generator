@@ -321,10 +321,10 @@ document.addEventListener('DOMContentLoaded', () => {
       formData.append('image_file', blob, 'photo.png');
       formData.append('size', 'auto');
 
-      // const apiKeyResponse = await fetch('apikey.txt');
-      // const apiKey = await apiKeyResponse.text();
-      
-      const apiKey = process.env.REMOVE_BG_API_KEY;
+      const apiKey = window.ENV.REMOVE_BG_API_KEY;
+      if (!apiKey || apiKey === "your-local-api-key-here") {
+        throw new Error('API key is missing or not set. Please set REMOVE_BG_API_KEY in environment variables or in index.html for local testing.');
+      }
 
       const apiResponse = await axios.post('https://api.remove.bg/v1.0/removebg', formData, {
         headers: { 'X-Api-Key': apiKey.trim(), 'Content-Type': 'multipart/form-data' },
@@ -588,7 +588,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      // Ensure the canvas is fully rendered before downloading
       await renderPreview();
       const dataUrl = previewCanvas.toDataURL('image/jpeg', 1.0);
       if (!dataUrl || dataUrl === 'data:,') {
@@ -616,7 +615,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      // Ensure the canvas is fully rendered before downloading
       await renderPreview();
       const { jsPDF } = window.jspdf;
       const canvas = await html2canvas(previewCanvas, {

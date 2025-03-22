@@ -194,6 +194,14 @@
     </div>
   </div>
 
+  <!-- Inject Environment Variables -->
+  <script>
+    // For Vercel, this will be replaced with the actual environment variable
+    window.ENV = {
+      REMOVE_BG_API_KEY: "${REMOVE_BG_API_KEY}" || "your-local-api-key-here" // Replace with your API key for local testing
+    };
+  </script>
+
   <!-- Scripts -->
   <script src="assets/fabric.min.js"></script>
   <script src="assets/axios.min.js"></script>
